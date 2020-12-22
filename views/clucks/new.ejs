@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+    <% if(username){ %>
+        <form action='/clucks/new' method="POST" class='form-group card'>
+            <div class='form-group container'>
+                <label for='content'>Content</label>
+                <p><textarea type="text" name='content' placeholder="Whatchoo cluckin' 'bout?" class="form-contol  col-lg-12"  rows='5' autocomplete="off"  autocapitalize="off" spellcheck="false" required></textarea></p>
+                <label for='image_url'>Image Url</label>
+                <p><input type='text' name='image_url' placeholder='https://i.imgur.com/qM6KaEy.gifv' class='form-control'></p>
+                <div class='container button'>
+                <button type='submit' class='btn btn-outline-secondary btn-lg px-5'>Cluck!</button>
+                </div></br>
+            </div>
+        </form>
+    <% } else { %>
+        <h1>Please sign in</h1>
+    <% } %>
+    
+
+<%- include('../partials/footer') %>

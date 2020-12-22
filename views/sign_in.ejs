@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+
+    <% if(username){ %>
+        <h1> Already Signed in as <%= username %></h1>
+    <% } else { %>
+        <form action='/sign_in' method="POST" class='form-group card'>
+            <div class='form-control form-inline'>
+            <label for='username'>Username</label>
+            <p><input type="text" name='username' placeholder='eg. Madam Welminster' class="form-control"   autocapitalize="off" spellcheck="false" required></p>
+            <div class="container button">
+            <button type='submit' class='btn btn-outline-secondary btn-lg px-5'>Sign In</button>
+            </div>
+        </div>
+        </form>
+    
+    <% } %>
+    
+
+<%- include('./partials/footer') %>
