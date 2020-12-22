@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+<% const times = [["second", 1], ["minute", 60], ["hour", 3600], ["day", 86400], ["week", 604800], ["month", 2592000], ["year", 31536000]] %>
+
+<% function timeAgo(date) { %>
+    <% let diff = Math.round((new Date() - date) / 1000) %>
+    <% for (let t = 0; t < times.length; t++) { %>
+        <% if (diff < times[t][1]) { %>
+            <% if(t == 0) { return "Just now" } else { %>
+            <%  diff = Math.round(diff / times[t - 1][1]); return diff + " " + times[t - 1][0] + (diff == 1?" ago":"s ago") } %>
+        <% } %>
+   <% } %>
+<% } %>
+
+<% if(clucks){ %>
+<div class='container cluck-container'>
+    <div class='card cluck-tweets'>
+        <div class='card-body grey mobile-screen'>
+            <h4>Trending Clucks</h4>
+            <% let tweetArr = [] %>
+            <% for (tweet of clucks){ %>
+                <% let strArray = [] %>
+                <% strArray.push(tweet.content.match(/\#[a-zA-Z0-9]+/g)) %>
+               <% tweetArr.push(strArray) %>
+            <% } %>
+            <% function flatten(arr){ %>
+                <% let flat = a=>[].concat(...a) %> 
+                <% return flat(arr.map(i=>Array.isArray(i)?flatten(i):i))} %>
+              <% let newArr = flatten(tweetArr).reduce((prev, cur)=>{ prev[cur] = (prev [cur] || 0) + 1;  return prev;}, {}) %>
+            <% for (let [i, j] of Object.entries(newArr).sort((a,b)=>b[1] - a[1]) ){ %>
+                <% if (i !== 'null'){ %>
+                <h5><%= `${i} - ${j}` %></h5> 
+                <% } %>
+            <% } %> 
+        </div>
+    </div>
+    <div class='col'>
+        <% for (let cluck of clucks) { %>
+            <div class='card mb-4'>
+                <div class='card-body'>
+                    <ul class='grey hash row'>
+                        <div class='col-1'><img src="../chicken_avatar.jpg" class='round-circle-profile' alt="cluck avatar"></div>
+                        <div class='col-11'>
+                        <span><%=cluck.username %></span> &#8226; 
+                        <span> <%= timeAgo(new Date(cluck.created_at).getTime()) %> </span> 
+                        <li>
+                            <p class='card-test'> <%= cluck.content%> </p>
+                            <% if(cluck.image_url){ %>
+                                    <img src="<%= cluck.image_url %>" alt='cluck image' class='cluck-img img-fluid'> 
+                            <% } %>
+                        </li>
+                    </div>
+                    </ul>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+<% } %>
+    
+
+<%- include('../partials/footer') %>
