@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cluckr</title>
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+</head>
+<body>
+  <main class="container">
+  <nav class="navbar navbar-expand navbar-blue justify-content-between">
+    
+      <a href="/"><img src='../chicken.png' alt='cluckr logo'/></a>
+      <ul class="navbar-nav  ml-auto">
+        <li class="nav-item active"><a href="/clucks/new" class='btn btn-secondary'>Cluck!</a></li>
+        
+          <% if(username){ %>
+            <li class='nav-item navbar-text grey'>
+              <h3><%= username %></h3>
+            </li>
+            <form action='/sign_out' method="POST">
+              <li class="nav-item active"></li>
+              <button type='submit' class='btn btn-secondary'>Sign Out</button>
+              </li>
+            </form>
+          <% } else { %>
+        <li class="nav-item">
+          <a type='submit' href='/sign_in' class='btn btn-secondary'>Sign In</a>
+        </li>
+        <% } %>
+      </ul>
+      
+  </nav><hr>
+    
+
+    
+    
